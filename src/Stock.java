@@ -2,7 +2,6 @@ import java.io.*;
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import org.json.simple.*;
 import org.json.simple.parser.*;
@@ -26,7 +25,6 @@ public class Stock {
                 Treat t = new Treat(treatObj);
                 treats.put(t.name, t);
             }
-            //System.out.println(treats);
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -43,7 +41,6 @@ public class Stock {
                 SaleRule rule = new SaleRule(ruleObj);
                 rules.put(rule.name, rule);
             }
-            System.out.println(rules);
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -86,24 +83,17 @@ public class Stock {
         SaleRule rule = ruleChecker(treat, date);
         if(rule != null){
             if (rule.getBulkPricing().isPresent()){
-                bulkPricing = rule.getBulkPricing().get();
-                int bulkPricingAmount = bulkPricing.getAmount();
-                int bulkDeals = amount / bulkPricingAmount;
-                return ((amount % bulkPricingAmount * t.getPrice()) + (bulkDeals * bulkPricing.getTotalPrice()));
+                return applyBulkPricing(t.getPrice(), amount, rule.getBulkPricing().get());
             }
             if (rule.getPercentage().isPresent()){
                 return amount * t.getPrice() * (1 - rule.getPercentage().get().floatValue());
             }
         }
 
-
         if (!t.getBulkPricing().isPresent()){
             return amount * t.getPrice();
         } else {
-            bulkPricing = t.getBulkPricing().get();
-            int bulkPricingAmount = bulkPricing.getAmount();
-            int bulkDeals = amount / bulkPricingAmount;
-            return ((amount % bulkPricingAmount * t.getPrice()) + (bulkDeals * bulkPricing.getTotalPrice()));
+            return applyBulkPricing(t.getPrice(), amount, t.getBulkPricing().get());
         }
     }
 
@@ -113,5 +103,15 @@ public class Stock {
             treatTypes.add(treat);
         }
         return treatTypes;
+    }
+
+    public double getTreatCost(String treat){
+        return treats.get(treat).getPrice();
+    }
+
+    private double applyBulkPricing(double price, int amount, BulkPricing bulkPricing){
+        int bulkPricingAmount = bulkPricing.getAmount();
+        int bulkDeals = amount / bulkPricingAmount;
+        return ((amount % bulkPricingAmount * price) + (bulkDeals * bulkPricing.getTotalPrice()));
     }
 }

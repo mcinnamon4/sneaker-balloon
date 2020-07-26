@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d5b547ac-338f-4fdb-841c-ce2fcde5f571" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Bakery.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Bakery.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bakery.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/Bakery.ipr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bakery.iws" beforeDir="false" afterPath="$PROJECT_DIR$/Bakery.iws" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Bakery/Cart.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Bakery/Cart.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Bakery/Stock.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Bakery/Stock.class" afterDir="false" />
@@ -16,7 +14,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageViewManager">
-    <option name="myElementSize" value="216" />
+    <option name="myElementSize" value="213" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -47,7 +45,7 @@
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
-  <component name="RunManager" selected="Application.Cart">
+  <component name="RunManager" selected="JUnit.TestClass.testDate1">
     <configuration name="Cart" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Cart" />
       <module name="Bakery" />
@@ -97,10 +95,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Cart" />
+        <item itemvalue="JUnit.TestClass.testDate1" />
         <item itemvalue="JUnit.TestClass.testDate3" />
         <item itemvalue="JUnit.TestClass.testDate2" />
-        <item itemvalue="JUnit.TestClass.testDate1" />
+        <item itemvalue="Application.Cart" />
         <item itemvalue="JUnit.TestClass.testType2" />
       </list>
     </recent_temporary>
@@ -127,38 +125,42 @@
       <screen x="1680" y="23" width="1920" height="1057" />
     </state>
     <state x="2591" y="312" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1680.958/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595744863224" />
-    <state width="1427" height="257" key="GridCell.Tab.0.bottom" timestamp="1595747710267">
+    <state x="2499" y="104" key="CommitChangelistDialog2" timestamp="1595796396101">
       <screen x="1680" y="23" width="1920" height="1057" />
     </state>
-    <state width="1427" height="257" key="GridCell.Tab.0.bottom/0.23.1680.958/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595747710267" />
-    <state width="1427" height="257" key="GridCell.Tab.0.center" timestamp="1595747710265">
+    <state x="2499" y="104" key="CommitChangelistDialog2/0.23.1680.958/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595796396101" />
+    <state width="1630" height="224" key="GridCell.Tab.0.bottom" timestamp="1595797435785">
       <screen x="1680" y="23" width="1920" height="1057" />
     </state>
-    <state width="1427" height="257" key="GridCell.Tab.0.center/0.23.1680.958/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595747710265" />
-    <state width="1427" height="257" key="GridCell.Tab.0.left" timestamp="1595747710265">
+    <state width="1630" height="224" key="GridCell.Tab.0.bottom/0.23.1680.958/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595797435785" />
+    <state width="1630" height="224" key="GridCell.Tab.0.center" timestamp="1595797435783">
       <screen x="1680" y="23" width="1920" height="1057" />
     </state>
-    <state width="1427" height="257" key="GridCell.Tab.0.left/0.23.1680.958/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595747710265" />
-    <state width="1427" height="257" key="GridCell.Tab.0.right" timestamp="1595747710266">
+    <state width="1630" height="224" key="GridCell.Tab.0.center/0.23.1680.958/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595797435783" />
+    <state width="1630" height="224" key="GridCell.Tab.0.left" timestamp="1595797435783">
       <screen x="1680" y="23" width="1920" height="1057" />
     </state>
-    <state width="1427" height="257" key="GridCell.Tab.0.right/0.23.1680.958/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595747710266" />
-    <state width="1469" height="318" key="GridCell.Tab.1.bottom" timestamp="1595721313982">
+    <state width="1630" height="224" key="GridCell.Tab.0.left/0.23.1680.958/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595797435783" />
+    <state width="1630" height="224" key="GridCell.Tab.0.right" timestamp="1595797435784">
       <screen x="1680" y="23" width="1920" height="1057" />
     </state>
-    <state width="1469" height="318" key="GridCell.Tab.1.bottom/0.23.1680.958/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595721313982" />
-    <state width="1469" height="318" key="GridCell.Tab.1.center" timestamp="1595721313981">
+    <state width="1630" height="224" key="GridCell.Tab.0.right/0.23.1680.958/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595797435784" />
+    <state width="1427" height="318" key="GridCell.Tab.1.bottom" timestamp="1595794820073">
       <screen x="1680" y="23" width="1920" height="1057" />
     </state>
-    <state width="1469" height="318" key="GridCell.Tab.1.center/0.23.1680.958/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595721313981" />
-    <state width="1469" height="318" key="GridCell.Tab.1.left" timestamp="1595721313980">
+    <state width="1427" height="318" key="GridCell.Tab.1.bottom/0.23.1680.958/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595794820073" />
+    <state width="1427" height="318" key="GridCell.Tab.1.center" timestamp="1595794820071">
       <screen x="1680" y="23" width="1920" height="1057" />
     </state>
-    <state width="1469" height="318" key="GridCell.Tab.1.left/0.23.1680.958/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595721313980" />
-    <state width="1469" height="318" key="GridCell.Tab.1.right" timestamp="1595721313981">
+    <state width="1427" height="318" key="GridCell.Tab.1.center/0.23.1680.958/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595794820071" />
+    <state width="1427" height="318" key="GridCell.Tab.1.left" timestamp="1595794820071">
       <screen x="1680" y="23" width="1920" height="1057" />
     </state>
-    <state width="1469" height="318" key="GridCell.Tab.1.right/0.23.1680.958/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595721313981" />
+    <state width="1427" height="318" key="GridCell.Tab.1.left/0.23.1680.958/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595794820071" />
+    <state width="1427" height="318" key="GridCell.Tab.1.right" timestamp="1595794820072">
+      <screen x="1680" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1427" height="318" key="GridCell.Tab.1.right/0.23.1680.958/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595794820072" />
     <state x="2276" y="83" key="SettingsEditor" timestamp="1595743898741">
       <screen x="1680" y="23" width="1920" height="1057" />
     </state>
@@ -171,12 +173,12 @@
       <screen x="1680" y="23" width="1920" height="1057" />
     </state>
     <state x="2311" y="89" width="816" height="825" key="find.popup/0.23.1680.958/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595717429468" />
-    <state x="2454" y="233" width="670" height="676" key="search.everywhere.popup" timestamp="1595721104979">
+    <state x="2454" y="233" width="670" height="676" key="search.everywhere.popup" timestamp="1595797343781">
       <screen x="1680" y="23" width="1920" height="1057" />
     </state>
-    <state x="2454" y="233" width="670" height="676" key="search.everywhere.popup/0.23.1680.958/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595721104979" />
+    <state x="2454" y="233" width="670" height="676" key="search.everywhere.popup/0.23.1680.958/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595797343781" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Bakery$Cart.ic" NAME="Cart Coverage Results" MODIFIED="1595747605162" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/Bakery$Cart.ic" NAME="Cart Coverage Results" MODIFIED="1595793999832" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
