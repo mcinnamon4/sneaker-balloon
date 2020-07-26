@@ -1,0 +1,41 @@
+{
+  "rules": [
+    {
+      "id": 1,
+      "name": "Cookie",
+      "conditions": {
+        "day_of_week": "Friday",
+        "date": null
+      },
+      "bulkPricing": {
+        "amount": 8,
+        "totalPrice": 6.00
+      },
+      "percentage": null
+    },
+    {
+      "id": 2,
+      "name": "Key Lime Cheesecake",
+      "conditions": {
+        "day_of_week": null,
+        "date": "10/01"
+      },
+      "bulkPricing": null,
+      "percentage": 0.25
+    },
+
+    {
+      "id": 4,
+      "name": "Mini Gingerbread Donut",
+      "conditions": {
+        "day_of_week": "Tuesday",
+        "date": null
+      },
+      "bulkPricing": {
+        "amount": 2,
+        "totalPrice": 0.50
+      },
+      "percentage": null
+    }
+  ]
+}
