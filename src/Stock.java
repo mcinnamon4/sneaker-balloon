@@ -109,6 +109,14 @@ public class Stock {
         return treats.get(treat).getPrice();
     }
 
+    public Treat getTreat(String treat){
+        return treats.get(treat);
+    }
+
+    public SaleRule getRuleForTreat(String treat){
+        return rules.get(treat);
+    }
+
     private double applyBulkPricing(double price, int amount, BulkPricing bulkPricing){
         int bulkPricingAmount = bulkPricing.getAmount();
         int bulkDeals = amount / bulkPricingAmount;

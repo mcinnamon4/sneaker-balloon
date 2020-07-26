@@ -19,7 +19,7 @@ public class Cart {
         stock = new Stock();
         treatTypes= stock.getTreatTypes();
         System.out.println("Welcome to the CAI Bakery! What is your name?");
-        String userName = scanner.next();
+        String userName = scanner.nextLine();
         if(getRecord(userName).size() == 0) {
             service(userName);
         } else {
@@ -42,20 +42,23 @@ public class Cart {
             System.out.println("\n============================================================================");
             System.out.println("How many treats would you like to add to your cart?" +
                     " Please enter a list of ints separated by commas in order of treat (no spaces).");
+            System.out.println("---> Type the name of a treat to learn more.");
             System.out.println("---> You can clear your cart at any time by typing \"clear\".");
-            String amounts = scanner.next();
-            while(!validInputForAmounts(amounts)){
+            String input = scanner.nextLine();
+            while(!validInputForAmounts(input)){
                 scanner.nextLine();
                 System.out.println("Please enter a valid input.");
-                amounts = scanner.next();
+                input = scanner.nextLine();
             }
-            if(amounts.equals("clear")){
+            if(input.equals("clear")){
                 clear(name);
                 totalCost=0;
             }
-            else {
+            else if(treatTypes.contains(input)){
+                learnMore(input);
+            } else {
                 try {
-                    ArrayList<Integer> amountList = (ArrayList<Integer>) Arrays.asList(amounts.split(","))
+                    ArrayList<Integer> amountList = (ArrayList<Integer>) Arrays.asList(input.split(","))
                             .stream()
                             .map(a -> Integer.parseInt(a.replaceAll("\\s+", "")))
                             .collect(Collectors.toList());
@@ -83,7 +86,7 @@ public class Cart {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
             //System.exit(0);
         }
-        System.out.println("Opened database successfully");
+        System.out.println("Opened database successfully.");
 
     }
 
@@ -156,9 +159,43 @@ public class Cart {
         System.out.println("Subtotal: $0.0");
     }
 
+    //get more info
+    public static void learnMore(String treat) {
+        if(treatTypes.contains(treat)){
+            Treat t = stock.getTreat(treat);
+            System.out.println(t.getName());
+            System.out.println("Standard Price: " + t.getPrice());
+            System.out.println("Image: " + t.getImageURL());
+            if(t.getBulkPricing().isPresent()){
+                System.out.println("Bulk Pricing Info: " + t.getBulkPricing().get().getAmount() + " for $"
+                        + t.getBulkPricing().get().getTotalPrice());
+            }
+            if(stock.getRuleForTreat(treat) != null){
+                SaleRule rule = stock.getRuleForTreat(treat);
+                if(rule.getConditions().getDayOfWeek().isPresent()){
+                    System.out.println("Sale Days: " + rule.getConditions().getDayOfWeek().get());
+                } else if(rule.getConditions().getDate().isPresent()){
+                    System.out.println("Sale Date: " + rule.getConditions().getDate().get());
+                }
+                if(rule.getBulkPricing().isPresent()){
+                    System.out.println("===> " + rule.getBulkPricing().get().getAmount() + " for $"
+                            + rule.getBulkPricing().get().getTotalPrice());
+                }
+                if(rule.getPercentage().isPresent()){
+                    double perc = rule.getPercentage().get()*100;
+                    System.out.println("===> " + perc + "% off");
+                }
+            }
+
+        }
+        else{
+            System.out.println("Not a valid treat.");
+        }
+    }
+
     //check that user input is valid
     private static boolean validInputForAmounts(String input){
-        if (input.equals("clear")){
+        if (input.equals("clear") || treatTypes.contains(input)){
             return true;
         } else {
             String[] splitArray = input.split(",");
