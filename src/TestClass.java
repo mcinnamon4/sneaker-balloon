@@ -11,7 +11,7 @@ public class TestClass {
 
     @BeforeClass
     public static void testSetup() {
-        testStock = new Stock();
+        testStock = new Stock("input/products-data.json", "input/sale_rules.json");
     }
 
     @Test

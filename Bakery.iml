@@ -8,5 +8,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="com.googlecode.json-simple:json-simple:1.1.1" level="application" />
+    <orderEntry type="library" name="jars for bakery" level="project" />
   </component>
 </module>

@@ -1,8 +1,6 @@
 import java.io.*;
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import org.json.simple.*;
 import org.json.simple.parser.*;
@@ -12,12 +10,11 @@ public class Stock {
     HashMap<String, Treat> treats;
     HashMap<String, SaleRule> rules;
 
-    public Stock() {
-
+    public Stock(String productsFile, String salesFile) {
         //load treats in bakery
         JSONParser parser = new JSONParser();
         try {
-            Object obj = parser.parse(new FileReader("input/products-data.json"));
+            Object obj = parser.parse(new FileReader(productsFile));
             JSONObject jsonObject = (JSONObject) obj;
             JSONArray treatsJson = (JSONArray) jsonObject.get("treats");
             treats = new HashMap<String, Treat>();
@@ -26,7 +23,6 @@ public class Stock {
                 Treat t = new Treat(treatObj);
                 treats.put(t.name, t);
             }
-            //System.out.println(treats);
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -34,7 +30,7 @@ public class Stock {
         //load rules
         JSONParser parser2 = new JSONParser();
         try {
-            Object obj = parser2.parse(new FileReader("input/sale_rules.json"));
+            Object obj = parser2.parse(new FileReader(salesFile));
             JSONObject jsonObject = (JSONObject) obj;
             JSONArray rulesJson = (JSONArray) jsonObject.get("rules");
             rules = new HashMap<String, SaleRule>();
@@ -43,7 +39,6 @@ public class Stock {
                 SaleRule rule = new SaleRule(ruleObj);
                 rules.put(rule.name, rule);
             }
-            System.out.println(rules);
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -86,28 +81,43 @@ public class Stock {
         SaleRule rule = ruleChecker(treat, date);
         if(rule != null){
             if (rule.getBulkPricing().isPresent()){
-                bulkPricing = rule.getBulkPricing().get();
-                int bulkPricingAmount = bulkPricing.getAmount();
-                int bulkDeals = amount / bulkPricingAmount;
-                return ((amount % bulkPricingAmount * t.getPrice()) + (bulkDeals * bulkPricing.getTotalPrice()));
+                return applyBulkPricing(t.getPrice(), amount, rule.getBulkPricing().get());
             }
             if (rule.getPercentage().isPresent()){
                 return amount * t.getPrice() * (1 - rule.getPercentage().get().floatValue());
             }
         }
 
-
         if (!t.getBulkPricing().isPresent()){
             return amount * t.getPrice();
         } else {
-            bulkPricing = t.getBulkPricing().get();
-            int bulkPricingAmount = bulkPricing.getAmount();
-            int bulkDeals = amount / bulkPricingAmount;
-            return ((amount % bulkPricingAmount * t.getPrice()) + (bulkDeals * bulkPricing.getTotalPrice()));
+            return applyBulkPricing(t.getPrice(), amount, t.getBulkPricing().get());
         }
     }
 
-    public Set<String> getTreatTypes(){
-        return treats.keySet();
+    public ArrayList<String> getTreatTypes(){
+        ArrayList<String> treatTypes = new ArrayList<String>();
+        for (String treat : treats.keySet()){
+            treatTypes.add(treat);
+        }
+        return treatTypes;
+    }
+
+    public double getTreatCost(String treat){
+        return treats.get(treat).getPrice();
+    }
+
+    public Treat getTreat(String treat){
+        return treats.get(treat);
+    }
+
+    public SaleRule getRuleForTreat(String treat){
+        return rules.get(treat);
+    }
+
+    private double applyBulkPricing(double price, int amount, BulkPricing bulkPricing){
+        int bulkPricingAmount = bulkPricing.getAmount();
+        int bulkDeals = amount / bulkPricingAmount;
+        return ((amount % bulkPricingAmount * price) + (bulkDeals * bulkPricing.getTotalPrice()));
     }
 }
