@@ -1,5 +1,4 @@
 import java.io.*;
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -11,12 +10,11 @@ public class Stock {
     HashMap<String, Treat> treats;
     HashMap<String, SaleRule> rules;
 
-    public Stock() {
-
+    public Stock(String productsFile, String salesFile) {
         //load treats in bakery
         JSONParser parser = new JSONParser();
         try {
-            Object obj = parser.parse(new FileReader("input/products-data.json"));
+            Object obj = parser.parse(new FileReader(productsFile));
             JSONObject jsonObject = (JSONObject) obj;
             JSONArray treatsJson = (JSONArray) jsonObject.get("treats");
             treats = new HashMap<String, Treat>();
@@ -32,7 +30,7 @@ public class Stock {
         //load rules
         JSONParser parser2 = new JSONParser();
         try {
-            Object obj = parser2.parse(new FileReader("input/sale_rules.json"));
+            Object obj = parser2.parse(new FileReader(salesFile));
             JSONObject jsonObject = (JSONObject) obj;
             JSONArray rulesJson = (JSONArray) jsonObject.get("rules");
             rules = new HashMap<String, SaleRule>();

@@ -5,8 +5,11 @@
       <change beforePath="$PROJECT_DIR$/Bakery.iws" beforeDir="false" afterPath="$PROJECT_DIR$/Bakery.iws" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Bakery/Cart.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Bakery/Cart.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Bakery/Stock.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Bakery/Stock.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Bakery/TestClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Bakery/TestClass.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Cart.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cart.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Cart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cart.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Stock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Stock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TestClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TestClass.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,10 +48,19 @@
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
-  <component name="RunManager" selected="Application.Cart">
+  <component name="RunManager" selected="JUnit.TestClass.testType1">
     <configuration name="Cart" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Cart" />
       <module name="Bakery" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestClass" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Bakery" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TestClass" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -63,21 +75,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestClass.testDate2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TestClass.testType1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Bakery" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="TestClass" />
-      <option name="METHOD_NAME" value="testDate2" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TestClass.testDate3" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Bakery" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="TestClass" />
-      <option name="METHOD_NAME" value="testDate3" />
+      <option name="METHOD_NAME" value="testType1" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -95,11 +97,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TestClass.testType1" />
         <item itemvalue="Application.Cart" />
-        <item itemvalue="JUnit.TestClass.testDate1" />
-        <item itemvalue="JUnit.TestClass.testDate3" />
-        <item itemvalue="JUnit.TestClass.testDate2" />
         <item itemvalue="JUnit.TestClass.testType2" />
+        <item itemvalue="JUnit.TestClass" />
+        <item itemvalue="JUnit.TestClass.testDate1" />
       </list>
     </recent_temporary>
   </component>
@@ -129,22 +131,22 @@
       <screen x="1680" y="23" width="1920" height="1057" />
     </state>
     <state x="2499" y="104" key="CommitChangelistDialog2/0.23.1680.958/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595796396101" />
-    <state width="1630" height="224" key="GridCell.Tab.0.bottom" timestamp="1595798870281">
+    <state width="1630" height="224" key="GridCell.Tab.0.bottom" timestamp="1595802799720">
       <screen x="1680" y="23" width="1920" height="1057" />
     </state>
-    <state width="1630" height="224" key="GridCell.Tab.0.bottom/0.23.1680.958/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595798870281" />
-    <state width="1630" height="224" key="GridCell.Tab.0.center" timestamp="1595798870280">
+    <state width="1630" height="224" key="GridCell.Tab.0.bottom/0.23.1680.958/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595802799720" />
+    <state width="1630" height="224" key="GridCell.Tab.0.center" timestamp="1595802799719">
       <screen x="1680" y="23" width="1920" height="1057" />
     </state>
-    <state width="1630" height="224" key="GridCell.Tab.0.center/0.23.1680.958/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595798870280" />
-    <state width="1630" height="224" key="GridCell.Tab.0.left" timestamp="1595798870278">
+    <state width="1630" height="224" key="GridCell.Tab.0.center/0.23.1680.958/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595802799719" />
+    <state width="1630" height="224" key="GridCell.Tab.0.left" timestamp="1595802799719">
       <screen x="1680" y="23" width="1920" height="1057" />
     </state>
-    <state width="1630" height="224" key="GridCell.Tab.0.left/0.23.1680.958/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595798870278" />
-    <state width="1630" height="224" key="GridCell.Tab.0.right" timestamp="1595798870281">
+    <state width="1630" height="224" key="GridCell.Tab.0.left/0.23.1680.958/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595802799719" />
+    <state width="1630" height="224" key="GridCell.Tab.0.right" timestamp="1595802799720">
       <screen x="1680" y="23" width="1920" height="1057" />
     </state>
-    <state width="1630" height="224" key="GridCell.Tab.0.right/0.23.1680.958/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595798870281" />
+    <state width="1630" height="224" key="GridCell.Tab.0.right/0.23.1680.958/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595802799720" />
     <state width="1427" height="318" key="GridCell.Tab.1.bottom" timestamp="1595794820073">
       <screen x="1680" y="23" width="1920" height="1057" />
     </state>

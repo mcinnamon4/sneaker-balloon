@@ -16,7 +16,11 @@ public class Cart {
         connect();
         createIfNecessary();
         scanner = new Scanner(System.in);
-        stock = new Stock();
+        if(args.length < 2){
+            stock = new Stock("input/products-data.json", "input/sale_rules.json");
+        } else{
+            stock = new Stock(args[0], args[1]);
+        }
         treatTypes= stock.getTreatTypes();
         System.out.println("Welcome to the CAI Bakery! What is your name?");
         String userName = scanner.nextLine();
@@ -46,7 +50,6 @@ public class Cart {
             System.out.println("---> You can clear your cart at any time by typing \"clear\".");
             String input = scanner.nextLine();
             while(!validInputForAmounts(input)){
-                scanner.nextLine();
                 System.out.println("Please enter a valid input.");
                 input = scanner.nextLine();
             }
@@ -82,12 +85,11 @@ public class Cart {
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:bakery.db");
+            System.out.println("Opened database successfully.");
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
             //System.exit(0);
         }
-        System.out.println("Opened database successfully.");
-
     }
 
     public static void createIfNecessary() {
