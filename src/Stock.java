@@ -107,7 +107,11 @@ public class Stock {
         }
     }
 
-    public Set<String> getTreatTypes(){
-        return treats.keySet();
+    public ArrayList<String> getTreatTypes(){
+        ArrayList<String> treatTypes = new ArrayList<String>();
+        for (String treat : treats.keySet()){
+            treatTypes.add(treat);
+        }
+        return treatTypes;
     }
 }
