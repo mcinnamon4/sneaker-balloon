@@ -6,7 +6,7 @@ Dependencies:
 - junit-4.13
 - sqlite-jdbc-3.30.1
 
-Compile with:
+Compile (inside /src) with:
 
 `javac -cp "<INSERT CLASSPATH HERE>/*" *.java`
 
