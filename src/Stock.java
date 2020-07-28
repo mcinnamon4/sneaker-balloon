@@ -44,6 +44,9 @@ public class Stock {
         }
     }
 
+    /**
+     * Returns any applicable rules for date
+     */
     public SaleRule ruleChecker(int treatId, Date date) {
         SimpleDateFormat simpleDateformat = new SimpleDateFormat("EEEE");
         String day_of_week = simpleDateformat.format(date);
@@ -69,16 +72,22 @@ public class Stock {
         return null;
     }
 
-    public double calculatePriceForTreat(String treat, int amount, Date date){
-        Treat t = treats.get(getTreatId(treat));
+    /**
+     * Returns price for treat, taking rules & bulk pricing in mind
+     * Note: that rules trump bulk pricing
+     */
+    public double calculatePriceForTreat(Integer treatId, int amount, Date date){
+        System.out.println(treatId);
+        Treat t = treats.get(treatId);
         BulkPricing bulkPricing = null;
         if(t == null){
             System.out.println("Treat not recognized.");
             return 0;
         }
 
-        // see if rules apply
-        SaleRule rule = ruleChecker(getTreatId(treat), date);
+        // determine if rules apply
+        SaleRule rule = ruleChecker(treatId, date);
+       // System.out.println("RULE " + rule.toString());
         if(rule != null){
             if (rule.getBulkPricing().isPresent()){
                 return applyBulkPricing(t.getPrice(), amount, rule.getBulkPricing().get());
@@ -88,12 +97,26 @@ public class Stock {
             }
         }
 
+        // determine if bulk pricing applies
         if (!t.getBulkPricing().isPresent()){
             return amount * t.getPrice();
         } else {
             return applyBulkPricing(t.getPrice(), amount, t.getBulkPricing().get());
         }
     }
+
+    /**
+     * returns bulk price (with excess treat quantity taken into consideration)
+     */
+    private double applyBulkPricing(double price, int amount, BulkPricing bulkPricing){
+        int bulkPricingAmount = bulkPricing.getAmount();
+        int bulkDeals = amount / bulkPricingAmount;
+        return ((amount % bulkPricingAmount * price) + (bulkDeals * bulkPricing.getTotalPrice()));
+    }
+
+    /**
+     * Set of helper methods to access Treat information
+     */
 
     public ArrayList<String> getTreatTypes(){
         ArrayList<String> treatTypes = new ArrayList<String>();
@@ -108,18 +131,19 @@ public class Stock {
     }
 
     public double getTreatCostFromName(String treat){
-        return treats.get(getTreatId(treat)).getPrice();
+        return treats.get(getTreatIdFromName(treat)).getPrice();
     }
 
     public Treat getTreat(Integer id){
         return treats.get(id);
     }
 
-    public String getTreatName(Integer id){
+    public String getTreatNameFromId(Integer id){
         return treats.get(id).getName();
     }
 
-    public Integer getTreatId(String name){
+    // returns -1 if treat name does not exist
+    public Integer getTreatIdFromName(String name){
         for (Treat t : treats.values()){
             if(t.getName().equals(name)){
                 return t.getId();
@@ -132,9 +156,4 @@ public class Stock {
         return rules.get(id);
     }
 
-    private double applyBulkPricing(double price, int amount, BulkPricing bulkPricing){
-        int bulkPricingAmount = bulkPricing.getAmount();
-        int bulkDeals = amount / bulkPricingAmount;
-        return ((amount % bulkPricingAmount * price) + (bulkDeals * bulkPricing.getTotalPrice()));
-    }
 }

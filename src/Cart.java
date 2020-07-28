@@ -4,20 +4,21 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Date;
-import java.util.stream.Collectors;
-
 
 public class Cart {
     private static Connection c;
     private static Stock stock;
-    private static ArrayList<String> treatTypes;
+    private static HashMap<Integer, Treat> treats;
+    private static ArrayList<String> treatNames;
     private static Scanner scanner;
     //default time set to Oct 21 2021 unless input is provided.
     private static Date date = new Date(1633077830L * 1000);
 
     public static void main(String[] args) {
+        //connect to SQL database and create table if it doesn't exit
         connect();
         createIfNecessary();
+
         scanner = new Scanner(System.in);
         if(args.length < 3){
             stock = new Stock("input/products-data.json", "input/sale_rules.json");
@@ -31,9 +32,14 @@ public class Cart {
                 System.err.println(e.getMessage());
             }
         }
-        treatTypes= stock.getTreatTypes();
+
+        //get Treats from Stock
+        treats = stock.getTreats();
+        treatNames= stock.getTreatTypes();
         System.out.println("Welcome to the CAI Bakery! What is your name?");
         String userName = scanner.nextLine();
+
+        //determine whether or not user has been to Bakery prior
         if(getRecord(userName).size() == 0) {
             service(userName);
         } else {
@@ -46,11 +52,15 @@ public class Cart {
         }
     }
 
+    /**
+     * Gathers user's cart additions & calculates cost
+     */
     public static void service(String name) {
         double totalCost = 0;
         while (true) {
+            //Menu & Instruction printing
             System.out.println("\n====Menu====");
-            for (String treat : treatTypes) {
+            for (String treat : treatNames) {
                 System.out.print(treat + ": $" + stock.getTreatCostFromName(treat)+ ", ");
             }
             System.out.println("\n============================================================================");
@@ -59,24 +69,30 @@ public class Cart {
             System.out.println("---> Type the name of a treat to learn more.");
             System.out.println("---> You can clear your cart at any time by typing \"clear\".");
             String input = scanner.nextLine();
+
+            //validating input
             while(!validInputForAmounts(input)){
                 System.out.println("Please enter a valid input.");
                 input = scanner.nextLine();
             }
+
+            //handling input
             if(input.equals("clear")){
                 clear(name);
                 totalCost=0;
             }
-            else if(treatTypes.contains(input)){
+            else if(treatNames.contains(input)){
                 learnMore(input);
             } else {
                 try {
                     HashMap<String, Integer> amountList = generateAmountMap(input);
                     ArrayList<Integer> updatedAmounts = setRecord(name, amountList);
                     System.out.println("Your cart contains: \n");
-                    for (int x = 0; x < treatTypes.size(); x++) {
-                        System.out.print(updatedAmounts.get(x) + " " + stock.getTreatName(x+1) + "s, ");
-                        totalCost += stock.calculatePriceForTreat(treatTypes.get(x), updatedAmounts.get(x), date);
+                    //calculates cost
+                    for (int x = 0; x < treatNames.size(); x++) {
+                        System.out.print(updatedAmounts.get(x) + " " + stock.getTreatNameFromId(x+1) + "s, ");
+                        System.out.println(stock.getTreatNameFromId(x+1));
+                        totalCost += stock.calculatePriceForTreat(x+1, updatedAmounts.get(x), date);
                     }
                     System.out.println("\nSubtotal: $" + totalCost);
                     totalCost = 0;
@@ -135,17 +151,22 @@ public class Cart {
         return result;
     }
 
-    //updates sql database and also returns the updated amounts
+    /**
+     * Updates sql database and returns the updated amounts
+     **/
     public static ArrayList<Integer> setRecord(String name, HashMap<String, Integer> amountList) {
         ArrayList<Integer> original_amount = getRecord(name);
+        //converts treat name to id to prep for sql query
         HashMap<Integer, Integer> amountListMappedToId = new HashMap<Integer, Integer>();
         for (String treatName : amountList.keySet()){
-            amountListMappedToId.put(stock.getTreatId(treatName), amountList.get(treatName));
+            amountListMappedToId.put(stock.getTreatIdFromName(treatName), amountList.get(treatName));
         }
         String sql = "REPLACE INTO cart2(name,item1,item2,item3,item4) VALUES('"+ name+"',?,?,?,?)";
+
+        //update amounts stored in sql table; if provided, adds new quantity to previously entered values
         ArrayList<Integer> totalAmountList = new ArrayList<Integer>();
         try( PreparedStatement pstmt = c.prepareStatement(sql) ){
-            for (int x = 0; x < treatTypes.size(); x++) {
+            for (int x = 0; x < treatNames.size(); x++) {
                 int total_amount = 0;
                 if (original_amount.size() > 0) {
                     total_amount = original_amount.get(x);
@@ -164,7 +185,9 @@ public class Cart {
         return totalAmountList;
     }
 
-    //clear cart
+    /**
+     * clear cart by setting row to all 0 values
+     **/
     public static void clear(String name) {
         String sql = "REPLACE INTO cart2(name,item1,item2,item3,item4) VALUES('"+ name+"',0,0,0,0)";
         try{
@@ -176,10 +199,12 @@ public class Cart {
         System.out.println("\nSubtotal: $0.0");
     }
 
-    //get more info
+    /**
+     * prints info about treat
+     **/
     public static void learnMore(String treat) {
-        if(treatTypes.contains(treat)){
-            int treatId = stock.getTreatId(treat);
+        if(treatNames.contains(treat)){
+            int treatId = stock.getTreatIdFromName(treat);
             Treat t = stock.getTreat(treatId);
             System.out.println("Standard Price: " + t.getPrice());
             System.out.println("Image: " + t.getImageURL());
@@ -210,15 +235,18 @@ public class Cart {
         }
     }
 
-    //check that user input is valid
+
+    /**
+     * checks validity of user input
+     **/
     private static boolean validInputForAmounts(String input){
-        if (input.equals("clear") || treatTypes.contains(input)){
+        if (input.equals("clear") || treatNames.contains(input)){
             return true;
         } else {
             try{
                 HashMap<String, Integer> results = generateAmountMap(input);
                 for (String treat : results.keySet()){
-                    if (stock.getTreatId(treat) == -1){
+                    if (stock.getTreatIdFromName(treat) == -1){
                         return false;
                     }
                 }
@@ -229,6 +257,9 @@ public class Cart {
         return true;
     }
 
+    /**
+     * maps user's arbitrarly ordered input to a Map of treat name & amount
+     **/
     private static HashMap<String, Integer> generateAmountMap(String input){
         HashMap<String, Integer> amountList = new HashMap<String, Integer>();
         for (String i : input.split(", ")){

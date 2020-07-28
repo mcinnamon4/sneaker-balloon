@@ -1,7 +1,7 @@
 {
   "rules": [
     {
-      "id": 1,
+      "id": 3,
       "name": "Cookie",
       "conditions": {
         "day_of_week": "Friday",
