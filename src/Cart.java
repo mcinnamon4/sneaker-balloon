@@ -51,7 +51,7 @@ public class Cart {
         while (true) {
             System.out.println("\n====Menu====");
             for (String treat : treatTypes) {
-                System.out.print(treat + ": $" + stock.getTreatCost(treat)+ ", ");
+                System.out.print(treat + ": $" + stock.getTreatCostFromName(treat)+ ", ");
             }
             System.out.println("\n============================================================================");
             System.out.println("How many treats would you like to add to your cart?" +
@@ -174,7 +174,8 @@ public class Cart {
     //get more info
     public static void learnMore(String treat) {
         if(treatTypes.contains(treat)){
-            Treat t = stock.getTreat(treat);
+            int treatId = stock.getTreatId(treat);
+            Treat t = stock.getTreat(treatId);
             System.out.println(t.getName());
             System.out.println("Standard Price: " + t.getPrice());
             System.out.println("Image: " + t.getImageURL());
@@ -182,8 +183,8 @@ public class Cart {
                 System.out.println("Bulk Pricing Info: " + t.getBulkPricing().get().getAmount() + " for $"
                         + t.getBulkPricing().get().getTotalPrice());
             }
-            if(stock.getRuleForTreat(treat) != null){
-                SaleRule rule = stock.getRuleForTreat(treat);
+            if(stock.getRuleForTreat(treatId) != null){
+                SaleRule rule = stock.getRuleForTreat(treatId);
                 if(rule.getConditions().getDayOfWeek().isPresent()){
                     System.out.println("Sale Days: " + rule.getConditions().getDayOfWeek().get());
                 } else if(rule.getConditions().getDate().isPresent()){

@@ -4,10 +4,9 @@
     <list default="true" id="d5b547ac-338f-4fdb-841c-ce2fcde5f571" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/Bakery.iws" beforeDir="false" afterPath="$PROJECT_DIR$/Bakery.iws" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Bakery/Cart.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Bakery/Cart.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Bakery/TestClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Bakery/TestClass.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Cart.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cart.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Bakery/Stock.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Bakery/Stock.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Cart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cart.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TestClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TestClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Stock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Stock.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +45,7 @@
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
-  <component name="RunManager" selected="JUnit.TestClass.testDate4">
+  <component name="RunManager" selected="Application.Cart">
     <configuration name="Cart" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Cart" />
       <module name="Bakery" />
@@ -95,9 +94,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Cart" />
         <item itemvalue="JUnit.TestClass.testDate4" />
         <item itemvalue="JUnit.TestClass.testType1" />
-        <item itemvalue="Application.Cart" />
         <item itemvalue="JUnit.TestClass.testType2" />
         <item itemvalue="JUnit.TestClass" />
       </list>
@@ -129,30 +128,30 @@
       <screen x="1680" y="23" width="1920" height="1057" />
     </state>
     <state x="2499" y="104" key="CommitChangelistDialog2/0.23.1680.958/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595796396101" />
-    <state width="1427" height="224" key="GridCell.Tab.0.bottom" timestamp="1595913254358">
+    <state width="1427" height="224" key="GridCell.Tab.0.bottom" timestamp="1595918564044">
       <screen x="1680" y="23" width="1920" height="1057" />
     </state>
     <state width="1630" height="224" key="GridCell.Tab.0.bottom/0.23.1680.958/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595803167518" />
     <state width="1427" height="224" key="GridCell.Tab.0.bottom/0.23.1680.958@0.23.1680.958" timestamp="1595808756675" />
-    <state width="1427" height="224" key="GridCell.Tab.0.bottom/0.23.1680.960/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595913254358" />
-    <state width="1427" height="224" key="GridCell.Tab.0.center" timestamp="1595913254357">
+    <state width="1427" height="224" key="GridCell.Tab.0.bottom/0.23.1680.960/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595918564044" />
+    <state width="1427" height="224" key="GridCell.Tab.0.center" timestamp="1595918564043">
       <screen x="1680" y="23" width="1920" height="1057" />
     </state>
     <state width="1630" height="224" key="GridCell.Tab.0.center/0.23.1680.958/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595803167517" />
     <state width="1427" height="224" key="GridCell.Tab.0.center/0.23.1680.958@0.23.1680.958" timestamp="1595808756674" />
-    <state width="1427" height="224" key="GridCell.Tab.0.center/0.23.1680.960/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595913254357" />
-    <state width="1427" height="224" key="GridCell.Tab.0.left" timestamp="1595913254356">
+    <state width="1427" height="224" key="GridCell.Tab.0.center/0.23.1680.960/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595918564043" />
+    <state width="1427" height="224" key="GridCell.Tab.0.left" timestamp="1595918564043">
       <screen x="1680" y="23" width="1920" height="1057" />
     </state>
     <state width="1630" height="224" key="GridCell.Tab.0.left/0.23.1680.958/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595803167517" />
     <state width="1427" height="224" key="GridCell.Tab.0.left/0.23.1680.958@0.23.1680.958" timestamp="1595808756674" />
-    <state width="1427" height="224" key="GridCell.Tab.0.left/0.23.1680.960/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595913254356" />
-    <state width="1427" height="224" key="GridCell.Tab.0.right" timestamp="1595913254358">
+    <state width="1427" height="224" key="GridCell.Tab.0.left/0.23.1680.960/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595918564043" />
+    <state width="1427" height="224" key="GridCell.Tab.0.right" timestamp="1595918564044">
       <screen x="1680" y="23" width="1920" height="1057" />
     </state>
     <state width="1630" height="224" key="GridCell.Tab.0.right/0.23.1680.958/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595803167518" />
     <state width="1427" height="224" key="GridCell.Tab.0.right/0.23.1680.958@0.23.1680.958" timestamp="1595808756674" />
-    <state width="1427" height="224" key="GridCell.Tab.0.right/0.23.1680.960/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595913254358" />
+    <state width="1427" height="224" key="GridCell.Tab.0.right/0.23.1680.960/1680.23.1920.1057@1680.23.1920.1057" timestamp="1595918564044" />
     <state width="1427" height="318" key="GridCell.Tab.1.bottom" timestamp="1595808753680">
       <screen x="0" y="23" width="1680" height="958" />
     </state>
