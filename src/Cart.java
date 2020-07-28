@@ -1,4 +1,7 @@
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Date;
 import java.util.stream.Collectors;
@@ -9,17 +12,24 @@ public class Cart {
     private static Stock stock;
     private static ArrayList<String> treatTypes;
     private static Scanner scanner;
-    //change date here - epoch time
-    private static final Date DATE = new Date(1633077830L * 1000);
+    //default time set to Oct 21 2021 unless input is provided.
+    private static Date date = new Date(1633077830L * 1000);
 
     public static void main(String[] args) {
         connect();
         createIfNecessary();
         scanner = new Scanner(System.in);
-        if(args.length < 2){
+        if(args.length < 3){
             stock = new Stock("input/products-data.json", "input/sale_rules.json");
-        } else{
+        } else {
             stock = new Stock(args[0], args[1]);
+            DateFormat format = new SimpleDateFormat("MM/dd/yy", Locale.ENGLISH);
+            try {
+                date = format.parse(args[2]);
+                System.out.println(date);
+            } catch (ParseException e) {
+                System.err.println(e.getMessage());
+            }
         }
         treatTypes= stock.getTreatTypes();
         System.out.println("Welcome to the CAI Bakery! What is your name?");
@@ -29,7 +39,7 @@ public class Cart {
         } else {
             System.out.println("\nWelcome back. Your cart contains:");
             for(int x = 0; x < 4; x++){
-                System.out.print(getRecord(userName).get(x) + " " + treatTypes.get(x) + "s, ");
+                System.out.print(getRecord(userName).get(x) + " " + stock.getTreats().get(x+1).getName() + "s, ");
             }
             System.out.print("\n");
             service(userName);
@@ -41,11 +51,11 @@ public class Cart {
         while (true) {
             System.out.println("\n====Menu====");
             for (String treat : treatTypes) {
-                System.out.print(treat + ": $" + stock.getTreatCost(treat)+ ", ");
+                System.out.print(treat + ": $" + stock.getTreatCostFromName(treat)+ ", ");
             }
             System.out.println("\n============================================================================");
             System.out.println("How many treats would you like to add to your cart?" +
-                    " Please enter a list of ints separated by commas in order of treat (no spaces).");
+                    " Please enter the treat followed by the amount, separated by commas. (Ex. Brownie:1,Key Lime Cheesecake:2)");
             System.out.println("---> Type the name of a treat to learn more.");
             System.out.println("---> You can clear your cart at any time by typing \"clear\".");
             String input = scanner.nextLine();
@@ -61,19 +71,18 @@ public class Cart {
                 learnMore(input);
             } else {
                 try {
-                    ArrayList<Integer> amountList = (ArrayList<Integer>) Arrays.asList(input.split(","))
-                            .stream()
-                            .map(a -> Integer.parseInt(a.replaceAll("\\s+", "")))
-                            .collect(Collectors.toList());
+                    HashMap<String, Integer> amountList = generateAmountMap(input);
                     ArrayList<Integer> updatedAmounts = setRecord(name, amountList);
                     System.out.println("Your cart contains: \n");
-                    for (int x = 0; x < 4; x++) {
-                        System.out.print(updatedAmounts.get(x) + " " + treatTypes.get(x) + "s, ");
-                        totalCost += stock.calculatePriceForTreat(treatTypes.get(x), updatedAmounts.get(x), DATE);
+                    for (int x = 0; x < treatTypes.size(); x++) {
+                        System.out.print(updatedAmounts.get(x) + " " + stock.getTreatName(x+1) + "s, ");
+                        totalCost += stock.calculatePriceForTreat(treatTypes.get(x), updatedAmounts.get(x), date);
+                        System.out.println(treatTypes.get(x) + " " + totalCost);
                     }
                     System.out.println("\nSubtotal: $" + totalCost);
                     totalCost = 0;
                 } catch (Exception e){
+                    System.err.println(e);
                     System.err.println("Malformed request. Please enter a list of ints separated by commas.");
                 }
             }
@@ -128,22 +137,29 @@ public class Cart {
     }
 
     //updates sql database and also returns the updated amounts
-    public static ArrayList<Integer> setRecord(String name, ArrayList<Integer> amountList) {
+    public static ArrayList<Integer> setRecord(String name, HashMap<String, Integer> amountList) {
         ArrayList<Integer> original_amount = getRecord(name);
+        HashMap<Integer, Integer> amountListMappedToId = new HashMap<Integer, Integer>();
+        for (String treatName : amountList.keySet()){
+            amountListMappedToId.put(stock.getTreatId(treatName), amountList.get(treatName));
+        }
         String sql = "REPLACE INTO cart2(name,item1,item2,item3,item4) VALUES('"+ name+"',?,?,?,?)";
         ArrayList<Integer> totalAmountList = new ArrayList<Integer>();
         try( PreparedStatement pstmt = c.prepareStatement(sql) ){
-            for (int x = 0; x < amountList.size(); x++){
-                int total_amount = amountList.get(x);
-                if (original_amount.size()>0){
-                    total_amount += original_amount.get(x);
+            for (int x = 0; x < treatTypes.size(); x++) {
+                int total_amount = 0;
+                if (original_amount.size() > 0) {
+                    total_amount = original_amount.get(x);
+                }
+                if (amountListMappedToId.get(x+1) != null) {
+                    total_amount += amountListMappedToId.get(x + 1);
                 }
                 totalAmountList.add(total_amount);
                 pstmt.setInt(x+1, total_amount);
             }
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
         }
 
         return totalAmountList;
@@ -158,22 +174,22 @@ public class Cart {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        System.out.println("Subtotal: $0.0");
+        System.out.println("\nSubtotal: $0.0");
     }
 
     //get more info
     public static void learnMore(String treat) {
         if(treatTypes.contains(treat)){
-            Treat t = stock.getTreat(treat);
-            System.out.println(t.getName());
+            int treatId = stock.getTreatId(treat);
+            Treat t = stock.getTreat(treatId);
             System.out.println("Standard Price: " + t.getPrice());
             System.out.println("Image: " + t.getImageURL());
             if(t.getBulkPricing().isPresent()){
                 System.out.println("Bulk Pricing Info: " + t.getBulkPricing().get().getAmount() + " for $"
                         + t.getBulkPricing().get().getTotalPrice());
             }
-            if(stock.getRuleForTreat(treat) != null){
-                SaleRule rule = stock.getRuleForTreat(treat);
+            if(stock.getRuleForTreat(treatId) != null){
+                SaleRule rule = stock.getRuleForTreat(treatId);
                 if(rule.getConditions().getDayOfWeek().isPresent()){
                     System.out.println("Sale Days: " + rule.getConditions().getDayOfWeek().get());
                 } else if(rule.getConditions().getDate().isPresent()){
@@ -200,18 +216,27 @@ public class Cart {
         if (input.equals("clear") || treatTypes.contains(input)){
             return true;
         } else {
-            String[] splitArray = input.split(",");
-            if(splitArray.length != treatTypes.size()){
-                return false;
-            }
-            for (String i : splitArray) {
-                try {
-                    Integer.parseInt(i.replaceAll("\\s+", ""));
-                } catch (Exception e) {
-                    return false;
+            try{
+                HashMap<String, Integer> results = generateAmountMap(input);
+                for (String treat : results.keySet()){
+                    if (stock.getTreatId(treat) == -1){
+                        return false;
+                    }
                 }
+            } catch(Exception e){
+                return false;
             }
         }
         return true;
     }
+
+    private static HashMap<String, Integer> generateAmountMap(String input){
+        HashMap<String, Integer> amountList = new HashMap<String, Integer>();
+        for (String i : input.split(",")){
+            String[] valArr = i.split(":");
+            amountList.put(valArr[0], Integer.parseInt(valArr[1]));
+        }
+        return amountList;
+    }
+
 }
