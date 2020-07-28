@@ -12,6 +12,6 @@ Compile (inside /src) with:
 
 Run (inside /src) with:
 
-`java -cp "<INSERT CLASSPATH HERE>/*:.” Cart ../input/products-data.json ../input/sale_rules.json`
+`java -cp "<INSERT CLASSPATH HERE>/*:.” Cart ../input/products-data.json ../input/sale_rules.json <DATE>`
 
-Change Date by altering the variable "DATE" in the Cart class. Default set to Oct 1, 2021.
+Date should be formatted as MM/dd/yy, i.e. "10/01/21".
