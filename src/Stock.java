@@ -77,7 +77,6 @@ public class Stock {
      * Note: that rules trump bulk pricing
      */
     public double calculatePriceForTreat(Integer treatId, int amount, Date date){
-        System.out.println(treatId);
         Treat t = treats.get(treatId);
         BulkPricing bulkPricing = null;
         if(t == null){
@@ -87,7 +86,6 @@ public class Stock {
 
         // determine if rules apply
         SaleRule rule = ruleChecker(treatId, date);
-       // System.out.println("RULE " + rule.toString());
         if(rule != null){
             if (rule.getBulkPricing().isPresent()){
                 return applyBulkPricing(t.getPrice(), amount, rule.getBulkPricing().get());

@@ -91,7 +91,6 @@ public class Cart {
                     //calculates cost
                     for (int x = 0; x < treatNames.size(); x++) {
                         System.out.print(updatedAmounts.get(x) + " " + stock.getTreatNameFromId(x+1) + "s, ");
-                        System.out.println(stock.getTreatNameFromId(x+1));
                         totalCost += stock.calculatePriceForTreat(x+1, updatedAmounts.get(x), date);
                     }
                     System.out.println("\nSubtotal: $" + totalCost);
