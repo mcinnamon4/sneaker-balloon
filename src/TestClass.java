@@ -81,4 +81,17 @@ public class TestClass {
         assertTrue(28.0 == totalCost);
     }
 
+    //test Oct 1, 2020
+    @Test
+    public void testDate4() {
+        double totalCost = 0;
+        Date date = new Date(1601552735L * 1000);
+        totalCost += testStock.calculatePriceForTreat("Cookie", 10, date);
+        totalCost += testStock.calculatePriceForTreat("Brownie", 6, date);
+        totalCost += testStock.calculatePriceForTreat("Key Lime Cheesecake", 1, date);
+        totalCost += testStock.calculatePriceForTreat("Mini Gingerbread Donut", 1, date);
+        System.out.println(totalCost);
+        assertTrue(28.5 == totalCost);
+    }
+
 }

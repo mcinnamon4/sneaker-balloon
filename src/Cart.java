@@ -1,4 +1,7 @@
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Date;
 import java.util.stream.Collectors;
@@ -9,17 +12,24 @@ public class Cart {
     private static Stock stock;
     private static ArrayList<String> treatTypes;
     private static Scanner scanner;
-    //change date here - epoch time
-    private static final Date DATE = new Date(1633077830L * 1000);
+    //default time set to Oct 21 2021 unless input is provided.
+    private static Date date = new Date(1633077830L * 1000);
 
     public static void main(String[] args) {
         connect();
         createIfNecessary();
         scanner = new Scanner(System.in);
-        if(args.length < 2){
+        if(args.length < 3){
             stock = new Stock("input/products-data.json", "input/sale_rules.json");
-        } else{
+        } else {
             stock = new Stock(args[0], args[1]);
+            DateFormat format = new SimpleDateFormat("MM/dd/yy", Locale.ENGLISH);
+            try {
+                date = format.parse(args[2]);
+                System.out.println(date);
+            } catch (ParseException e) {
+                System.err.println(e.getMessage());
+            }
         }
         treatTypes= stock.getTreatTypes();
         System.out.println("Welcome to the CAI Bakery! What is your name?");
@@ -69,7 +79,7 @@ public class Cart {
                     System.out.println("Your cart contains: \n");
                     for (int x = 0; x < 4; x++) {
                         System.out.print(updatedAmounts.get(x) + " " + treatTypes.get(x) + "s, ");
-                        totalCost += stock.calculatePriceForTreat(treatTypes.get(x), updatedAmounts.get(x), DATE);
+                        totalCost += stock.calculatePriceForTreat(treatTypes.get(x), updatedAmounts.get(x), date);
                     }
                     System.out.println("\nSubtotal: $" + totalCost);
                     totalCost = 0;
@@ -158,7 +168,7 @@ public class Cart {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        System.out.println("Subtotal: $0.0");
+        System.out.println("\nSubtotal: $0.0");
     }
 
     //get more info
