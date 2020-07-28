@@ -39,7 +39,7 @@ public class Cart {
         } else {
             System.out.println("\nWelcome back. Your cart contains:");
             for(int x = 0; x < 4; x++){
-                System.out.print(getRecord(userName).get(x) + " " + treatTypes.get(x) + "s, ");
+                System.out.print(getRecord(userName).get(x) + " " + stock.getTreats().get(x+1).getName() + "s, ");
             }
             System.out.print("\n");
             service(userName);
@@ -55,7 +55,7 @@ public class Cart {
             }
             System.out.println("\n============================================================================");
             System.out.println("How many treats would you like to add to your cart?" +
-                    " Please enter a list of ints separated by commas in order of treat (no spaces).");
+                    " Please enter the treat followed by the amount, separated by commas. (Ex. Brownie:1,Cheesecake:2)");
             System.out.println("---> Type the name of a treat to learn more.");
             System.out.println("---> You can clear your cart at any time by typing \"clear\".");
             String input = scanner.nextLine();
@@ -71,19 +71,18 @@ public class Cart {
                 learnMore(input);
             } else {
                 try {
-                    ArrayList<Integer> amountList = (ArrayList<Integer>) Arrays.asList(input.split(","))
-                            .stream()
-                            .map(a -> Integer.parseInt(a.replaceAll("\\s+", "")))
-                            .collect(Collectors.toList());
+                    HashMap<String, Integer> amountList = generateAmountMap(input);
                     ArrayList<Integer> updatedAmounts = setRecord(name, amountList);
                     System.out.println("Your cart contains: \n");
-                    for (int x = 0; x < 4; x++) {
-                        System.out.print(updatedAmounts.get(x) + " " + treatTypes.get(x) + "s, ");
+                    for (int x = 0; x < treatTypes.size(); x++) {
+                        System.out.print(updatedAmounts.get(x) + " " + stock.getTreatName(x+1) + "s, ");
                         totalCost += stock.calculatePriceForTreat(treatTypes.get(x), updatedAmounts.get(x), date);
+                        System.out.println(treatTypes.get(x) + " " + totalCost);
                     }
                     System.out.println("\nSubtotal: $" + totalCost);
                     totalCost = 0;
                 } catch (Exception e){
+                    System.err.println(e);
                     System.err.println("Malformed request. Please enter a list of ints separated by commas.");
                 }
             }
@@ -138,22 +137,29 @@ public class Cart {
     }
 
     //updates sql database and also returns the updated amounts
-    public static ArrayList<Integer> setRecord(String name, ArrayList<Integer> amountList) {
+    public static ArrayList<Integer> setRecord(String name, HashMap<String, Integer> amountList) {
         ArrayList<Integer> original_amount = getRecord(name);
+        HashMap<Integer, Integer> amountListMappedToId = new HashMap<Integer, Integer>();
+        for (String treatName : amountList.keySet()){
+            amountListMappedToId.put(stock.getTreatId(treatName), amountList.get(treatName));
+        }
         String sql = "REPLACE INTO cart2(name,item1,item2,item3,item4) VALUES('"+ name+"',?,?,?,?)";
         ArrayList<Integer> totalAmountList = new ArrayList<Integer>();
         try( PreparedStatement pstmt = c.prepareStatement(sql) ){
-            for (int x = 0; x < amountList.size(); x++){
-                int total_amount = amountList.get(x);
-                if (original_amount.size()>0){
-                    total_amount += original_amount.get(x);
+            for (int x = 0; x < treatTypes.size(); x++) {
+                int total_amount = 0;
+                if (original_amount.size() > 0) {
+                    total_amount = original_amount.get(x);
+                }
+                if (amountListMappedToId.get(x+1) != null) {
+                    total_amount += amountListMappedToId.get(x + 1);
                 }
                 totalAmountList.add(total_amount);
                 pstmt.setInt(x+1, total_amount);
             }
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
         }
 
         return totalAmountList;
@@ -176,7 +182,6 @@ public class Cart {
         if(treatTypes.contains(treat)){
             int treatId = stock.getTreatId(treat);
             Treat t = stock.getTreat(treatId);
-            System.out.println(t.getName());
             System.out.println("Standard Price: " + t.getPrice());
             System.out.println("Image: " + t.getImageURL());
             if(t.getBulkPricing().isPresent()){
@@ -211,18 +216,27 @@ public class Cart {
         if (input.equals("clear") || treatTypes.contains(input)){
             return true;
         } else {
-            String[] splitArray = input.split(",");
-            if(splitArray.length != treatTypes.size()){
-                return false;
-            }
-            for (String i : splitArray) {
-                try {
-                    Integer.parseInt(i.replaceAll("\\s+", ""));
-                } catch (Exception e) {
-                    return false;
+            try{
+                HashMap<String, Integer> results = generateAmountMap(input);
+                for (String treat : results.keySet()){
+                    if (stock.getTreatId(treat) == -1){
+                        return false;
+                    }
                 }
+            } catch(Exception e){
+                return false;
             }
         }
         return true;
     }
+
+    private static HashMap<String, Integer> generateAmountMap(String input){
+        HashMap<String, Integer> amountList = new HashMap<String, Integer>();
+        for (String i : input.split(",")){
+            String[] valArr = i.split(":");
+            amountList.put(valArr[0], Integer.parseInt(valArr[1]));
+        }
+        return amountList;
+    }
+
 }
