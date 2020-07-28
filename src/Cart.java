@@ -55,7 +55,7 @@ public class Cart {
             }
             System.out.println("\n============================================================================");
             System.out.println("How many treats would you like to add to your cart?" +
-                    " Please enter the treat followed by the amount, separated by commas. (Ex. Brownie:1,Cheesecake:2)");
+                    " Please enter the treat followed by the amount, separated by commas. (Ex. Brownie:1,Key Lime Cheesecake:2)");
             System.out.println("---> Type the name of a treat to learn more.");
             System.out.println("---> You can clear your cart at any time by typing \"clear\".");
             String input = scanner.nextLine();
