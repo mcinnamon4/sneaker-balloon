@@ -55,7 +55,7 @@ public class Cart {
             }
             System.out.println("\n============================================================================");
             System.out.println("How many treats would you like to add to your cart?" +
-                    " Please enter the treat followed by the amount, separated by commas. (Ex. Brownie:1,Key Lime Cheesecake:2)");
+                    " Please enter the treat followed by the amount, separated by comma & space. (Ex. Brownie:1, Key Lime Cheesecake:2)");
             System.out.println("---> Type the name of a treat to learn more.");
             System.out.println("---> You can clear your cart at any time by typing \"clear\".");
             String input = scanner.nextLine();
@@ -77,7 +77,6 @@ public class Cart {
                     for (int x = 0; x < treatTypes.size(); x++) {
                         System.out.print(updatedAmounts.get(x) + " " + stock.getTreatName(x+1) + "s, ");
                         totalCost += stock.calculatePriceForTreat(treatTypes.get(x), updatedAmounts.get(x), date);
-                        System.out.println(treatTypes.get(x) + " " + totalCost);
                     }
                     System.out.println("\nSubtotal: $" + totalCost);
                     totalCost = 0;
@@ -232,7 +231,7 @@ public class Cart {
 
     private static HashMap<String, Integer> generateAmountMap(String input){
         HashMap<String, Integer> amountList = new HashMap<String, Integer>();
-        for (String i : input.split(",")){
+        for (String i : input.split(", ")){
             String[] valArr = i.split(":");
             amountList.put(valArr[0], Integer.parseInt(valArr[1]));
         }
