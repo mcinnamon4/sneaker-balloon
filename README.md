@@ -14,4 +14,4 @@ Run (inside /src) with:
 
 `java -cp "<INSERT CLASSPATH HERE>/*:.” Cart ../input/products-data.json ../input/sale_rules.json`
 
-Change Date by altering the final variable "DATE" in the Cart class. Default set to Oct 21, 2021.
+Change Date by altering the final variable "DATE" in the Cart class. Default set to Oct 1, 2021.
