@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d5b547ac-338f-4fdb-841c-ce2fcde5f571" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Bakery.iws" beforeDir="false" afterPath="$PROJECT_DIR$/Bakery.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Bakery/Cart.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Bakery/Cart.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Bakery/Stock.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Bakery/Stock.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Cart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cart.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Stock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Stock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Cart.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cart.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
