@@ -8,10 +8,10 @@ Dependencies:
 
 Compile (inside /src) with:
 
-`javac -cp "<INSERT CLASSPATH HERE>/*" *.java`
+`javac -cp "../dependencies/*" *.java`
 
 Run (inside /src) with:
 
-`java -cp "<INSERT CLASSPATH HERE>/*:.” Cart ../input/products-data.json ../input/sale_rules.json <DATE>`
+`java -cp "../dependencies/*:." Cart ../input/products-data.json ../input/sale_rules.json <DATE>`
 
 Date should be formatted as MM/dd/yy, i.e. "10/01/21".
